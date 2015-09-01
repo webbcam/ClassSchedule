@@ -1,0 +1,73 @@
+<!doctype html>
+
+<html ng-app="CourseSchedule">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>CourseSchedule</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <!-- Lates compiled and minified FontAwesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+    <style>
+        .btn:focus {
+            outline: none;
+        }
+    </style>
+
+    <!-- Get Angular from CDN -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
+    <script src="courses.js"></script>
+    
+
+</head>
+
+<body ng-controller="mainCtrl">
+    <div class="container">
+
+        <div class="jumbotron text-center">
+            <h1>Enter your classes here:</h1>
+        </div>
+
+        <div id="course-list" class="row">
+            <div class="col-sm-4 text-center col-sm-offset-4">
+                <div ng-repeat="course in courseList">
+                    <div>
+                        {{course.title}} {{course.section}} <div class="glyphicon glyphicon-remove-circle" style="cursor:pointer" ng-click="deleteCourse(course._id)"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <br>
+
+
+        <div id="course-form" class="row">
+            <div class="cols-sm-4 text-center">
+                <form>
+                    <div class="cols-sm-2 text-center">
+                        <div class="form-group form-inline">
+                            <input type="text" class="form-control input-md text-center" placeholder="CMSC216" ng-model="courseData.title">
+                            <input type="text" class="form-control input-md text-center" placeholder="0101" ng-model="courseData.section">
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-md" ng-click="createCourse()">Add</button>
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+
+
+
+    </div>
+
+
+
+
+
+
+</body>
+</html>
