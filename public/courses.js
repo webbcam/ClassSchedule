@@ -2,6 +2,8 @@
 var app = angular.module('CourseSchedule', []);
 
 app.controller('mainCtrl', function($scope, $http) {
+    $scope.courseName = "";
+    $scope.courseSection = "";
     $scope.courseData = {};
 
     $http.get('/api/courses')
@@ -14,7 +16,10 @@ app.controller('mainCtrl', function($scope, $http) {
             console.log("Error: " + data);
         });
 
+
         $scope.createCourse = function() {
+
+            
             $http.post('/api/courses', $scope.courseData)
                 .success(function(data) {
                     $scope.courseData = {};
@@ -38,4 +43,5 @@ app.controller('mainCtrl', function($scope, $http) {
                     console.log('Error: ' + data);
                 });
         };
+
 });

@@ -8,10 +8,11 @@
     var morgan = require('morgan');             // log requests to the console (express4)
     var bodyParser = require('body-parser');    // pull information from HTML POST (express4)
     var methodOverride = require('method-override'); // simulate DELETE and PUT (express4)
+    var request = require('request');           //  used for making http calls to umd.io api
 
 
     //  configuration ======================  
-    mongoose.connect('mongodb://localhost/schedule_fall15');
+    mongoose.connect('mongodb://localhost/fall15');
 
     app.use(express.static(__dirname + '/public'));
     app.use(morgan('dev'));
@@ -22,8 +23,25 @@
 
     //  define model =======================
     var Course = mongoose.model('Course', {
-        title : String,
-        section : String
+        course : String,
+        section : String,
+        instructor : String,
+        lecture : {
+            days : String,
+            start : String,
+            end : String,
+            bldg : String,
+            room : String
+            },
+        lab : {
+                type : String,
+                days : String,
+                start : String,
+                end : String,
+                bldg : String,
+                room : String
+            }
+
     });
 
 //  routes =================================
@@ -43,33 +61,49 @@
     });
 
     app.post('/api/courses', function(req, res) {
+        var courseInfo = {};
+        console.log("REQ: Course= "+req.body.course + "Section= " + req.body.section);
 
-        var courseName = req.body.title;
-        var courseSection = req.body.section;
-
-        // app.get('http://api.umd.io/v0/courses/sections?course='+req.body.title'&number='+req.body.section), function(request, response) {
-        //     Course.create({
-        //         title : 
-        //     })
-        // }
-
-
+        request("http://api.umd.io/v0/courses/sections?course="+req.body.course.toUpperCase()+"&number="+req.body.section.toUpperCase(), function(err, response, body) {
+            var courseInfo= (JSON.parse(body))[0];
+            console.log(courseInfo.meetings[1].classtype);
 
         //  create a course, information comes from AJAX request from Angular
-        Course.create({
-            title : req.body.title,
-            section : req.body.section
-        }, function(err, course) {
-            if (err)
-                res.send(err);
+            Course.create({
+                course : courseInfo.course,
+                section : courseInfo.number,
+                instructor : courseInfo.instructors[0],
+                lecture : {
+                    days : courseInfo.meetings[0].days,
+                    start : courseInfo.meetings[0].start_time,
+                    end : courseInfo.meetings[0].end_time,
+                    bldg : courseInfo.meetings[0].building,
+                    room : courseInfo.meetings[0].room
+                }
+                // lab : {
+                //     type : courseInfo.meetings[1].classtype,
+                //     days : courseInfo.meetings[1].days,
+                //     start : courseInfo.meetings[1].start_time,
+                //     end : courseInfo.meetings[1].end_time,
+                //     bldg : courseInfo.meetings[1].building,
+                //     room : courseInfo.meetings[1].room
+                // }
 
-            //  get and return all the courses after you create another
-            Course.find(function(err, courses) {
+
+            }, function(err, course) {
                 if (err)
-                    res.send(err)
-                res.json(courses);
+                    res.send(err);
+
+                //  get and return all the courses after you create another
+                Course.find(function(err, courses) {
+                    if (err)
+                        res.send(err)
+                    res.json(courses);
+                });
             });
         });
+        
+        
 
     });
 

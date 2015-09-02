@@ -35,7 +35,8 @@
             <div class="col-sm-4 text-center col-sm-offset-4">
                 <div ng-repeat="course in courseList">
                     <div>
-                        {{course.title}} {{course.section}} <div class="glyphicon glyphicon-remove-circle" style="cursor:pointer" ng-click="deleteCourse(course._id)"></div>
+                        {{course.course}} - {{course.section}} - {{course.instructor}} - Lectures : {{course.lecture.days}} 
+                        <div class="glyphicon glyphicon-remove-circle" style="cursor:pointer" ng-click="deleteCourse(course._id)"></div>
                     </div>
                 </div>
 
@@ -49,7 +50,7 @@
                 <form>
                     <div class="cols-sm-2 text-center">
                         <div class="form-group form-inline">
-                            <input type="text" class="form-control input-md text-center" placeholder="CMSC216" ng-model="courseData.title">
+                            <input type="text" class="form-control input-md text-center" placeholder="CMSC216" ng-model="courseData.course">
                             <input type="text" class="form-control input-md text-center" placeholder="0101" ng-model="courseData.section">
                         </div>
                         <button type="submit" class="btn btn-primary btn-md" ng-click="createCourse()">Add</button>
