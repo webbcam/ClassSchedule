@@ -27,7 +27,7 @@
 </head>
 
 <body ng-controller="mainCtrl">
-    <div class="container">
+    <div class="container-fluid">
 
         <div class="jumbotron text-center">
             <h1>Enter your classes here:</h1>
@@ -54,10 +54,13 @@
                 <form>
                     <div class="cols-sm-4 col-sm-offset-4">
                         <div class="form-group form-inline">
-                            <input type="text" class="form-control input-md text-center" placeholder="CMSC216" ng-model="courseData.course">
+                            <input type="text" class="form-control input-md
+                            text-center" placeholder="CMSC216"
+                            ng-model="courseData.course" autofocus>
                             <input type="text" class="form-control input-md text-center" placeholder="0101" ng-model="courseData.section">
                         
-                            <button type="submit" class="btn btn-primary btn-md" ng-click="createCourse()">Add</button>
+                            <button type="submit" class="btn btn-primary btn-md"
+                            ng-click="createCourse()" >Add</button>
                         </div>
                     </div>
 
