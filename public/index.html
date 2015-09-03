@@ -19,6 +19,8 @@
 
     <!-- Get Angular from CDN -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
+    <!-- Get ngRoute from CDN -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular-route.min.js"></script>
     <script src="courses.js"></script>
     
 
@@ -32,11 +34,13 @@
         </div>
 
         <div id="course-list" class="row">
-            <div class="col-sm-4 text-center col-sm-offset-4">
+            <div class="col-sm-8 col-sm-offset-4">
                 <div ng-repeat="course in courseList">
                     <div>
-                        {{course.course}} - {{course.section}} - {{course.instructor}} - Lectures : {{course.lecture.days}} 
-                        <div class="glyphicon glyphicon-remove-circle" style="cursor:pointer" ng-click="deleteCourse(course._id)"></div>
+                        <h4>{{course.course}} - {{course.section}} ({{course.instructors}})  <div class="glyphicon glyphicon-remove-circle" style="cursor:pointer" ng-click="deleteCourse(course._id)"></div></h4> 
+                        <strong>Lectures</strong>  {{course.meetings[0].days}} {{course.meetings[0].start_time}} - {{course.meetings[0].end_time}} ({{course.meetings[0].building}} {{course.meetings[0].room}})
+                        <br><strong>{{course.meetings[1].classtype}} </strong>: {{course.meetings[1].days}} {{course.meetings[1].start_time}} - {{course.meetings[1].end_time}} ({{course.meetings[1].building}} {{course.meetings[1].room}})
+                        
                     </div>
                 </div>
 
@@ -46,14 +50,15 @@
 
 
         <div id="course-form" class="row">
-            <div class="cols-sm-4 text-center">
+            <div class="cols-sm-2">
                 <form>
-                    <div class="cols-sm-2 text-center">
+                    <div class="cols-sm-4 col-sm-offset-4">
                         <div class="form-group form-inline">
                             <input type="text" class="form-control input-md text-center" placeholder="CMSC216" ng-model="courseData.course">
                             <input type="text" class="form-control input-md text-center" placeholder="0101" ng-model="courseData.section">
+                        
+                            <button type="submit" class="btn btn-primary btn-md" ng-click="createCourse()">Add</button>
                         </div>
-                        <button type="submit" class="btn btn-primary btn-md" ng-click="createCourse()">Add</button>
                     </div>
 
                 </form>

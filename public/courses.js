@@ -1,5 +1,5 @@
 //  public/courses.js
-var app = angular.module('CourseSchedule', []);
+var app = angular.module('CourseSchedule', ['ngRoute']);
 
 app.controller('mainCtrl', function($scope, $http) {
     $scope.courseName = "";

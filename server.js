@@ -25,22 +25,9 @@
     var Course = mongoose.model('Course', {
         course : String,
         section : String,
-        instructor : String,
-        lecture : {
-            days : String,
-            start : String,
-            end : String,
-            bldg : String,
-            room : String
-            },
-        lab : {
-                type : String,
-                days : String,
-                start : String,
-                end : String,
-                bldg : String,
-                room : String
-            }
+        semester: String,
+        instructors : String,
+        meetings : []
 
     });
 
@@ -66,41 +53,22 @@
 
         request("http://api.umd.io/v0/courses/sections?course="+req.body.course.toUpperCase()+"&number="+req.body.section.toUpperCase(), function(err, response, body) {
             var courseInfo= (JSON.parse(body))[0];
-            console.log(courseInfo.meetings[1].classtype);
+                courseInfo.section = courseInfo.number; // give course object a "section" variable
 
-        //  create a course, information comes from AJAX request from Angular
-            Course.create({
-                course : courseInfo.course,
-                section : courseInfo.number,
-                instructor : courseInfo.instructors[0],
-                lecture : {
-                    days : courseInfo.meetings[0].days,
-                    start : courseInfo.meetings[0].start_time,
-                    end : courseInfo.meetings[0].end_time,
-                    bldg : courseInfo.meetings[0].building,
-                    room : courseInfo.meetings[0].room
-                }
-                // lab : {
-                //     type : courseInfo.meetings[1].classtype,
-                //     days : courseInfo.meetings[1].days,
-                //     start : courseInfo.meetings[1].start_time,
-                //     end : courseInfo.meetings[1].end_time,
-                //     bldg : courseInfo.meetings[1].building,
-                //     room : courseInfo.meetings[1].room
-                // }
-
-
-            }, function(err, course) {
+            //  create a course, information comes from AJAX request from Angular
+            Course.create(courseInfo, function(err, course) {
                 if (err)
                     res.send(err);
 
-                //  get and return all the courses after you create another
+                 // get and return all the courses after you create another
                 Course.find(function(err, courses) {
                     if (err)
                         res.send(err)
                     res.json(courses);
                 });
             });
+
+            
         });
         
         
