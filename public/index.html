@@ -21,6 +21,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
     <!-- Get ngRoute from CDN -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular-route.min.js"></script>
+    <!-- Get ui.Bootstrap -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.3/ui-bootstrap-tpls.min.js"></script>
+    <!-- Get ngAnimate -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.5/angular-animate.min.js"></script>
+
     <script src="courses.js"></script>
     
 
@@ -36,12 +41,22 @@
         <div id="course-list" class="row">
             <div class="col-sm-8 col-sm-offset-4">
                 <div ng-repeat="course in courseList">
+
                     <div>
-                        <h4>{{course.course}} - {{course.section}} ({{course.instructors}})  <div class="glyphicon glyphicon-remove-circle" style="cursor:pointer" ng-click="deleteCourse(course._id)"></div></h4> 
-                        <strong>Lectures</strong>  {{course.meetings[0].days}} {{course.meetings[0].start_time}} - {{course.meetings[0].end_time}} ({{course.meetings[0].building}} {{course.meetings[0].room}})
-                        <br><strong>{{course.meetings[1].classtype}} </strong>: {{course.meetings[1].days}} {{course.meetings[1].start_time}} - {{course.meetings[1].end_time}} ({{course.meetings[1].building}} {{course.meetings[1].room}})
-                        
+                        <h4>{{course.course}} - {{course.section}} ({{course.instructors}}) &nbsp; <span ng-class="{'fa fa-caret-down': !isCollapsed, 'fa fa-caret-right': isCollapsed}" ng-click="isCollapsed = !isCollapsed" style="cursor:pointer"></span></h4>
+                        <div collapse="isCollapsed">
+                            <div class="row">
+                                <div class="col-sm-5">
+                                <strong>Lectures</strong>  {{course.meetings[0].days}} {{course.meetings[0].start_time}} - {{course.meetings[0].end_time}} ({{course.meetings[0].building}} {{course.meetings[0].room}})
+                                <br><strong>{{course.meetings[1].classtype}} </strong>: {{course.meetings[1].days}} {{course.meetings[1].start_time}} - {{course.meetings[1].end_time}} ({{course.meetings[1].building}} {{course.meetings[1].room}})
+                                </div>
+                                <div class="col-sm-2">
+                                    <i class="pull-left glyphicon glyphicon-remove-circle" style="cursor:pointer" ng-click="deleteCourse(course._id)"></i>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+
                 </div>
 
             </div>

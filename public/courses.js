@@ -1,10 +1,11 @@
 //  public/courses.js
-var app = angular.module('CourseSchedule', ['ngRoute']);
+var app = angular.module('CourseSchedule', ['ngRoute','ui.bootstrap','ngAnimate']);
 
 app.controller('mainCtrl', function($scope, $http) {
     $scope.courseName = "";
     $scope.courseSection = "";
     $scope.courseData = {};
+    $scope.isCollapsed = true;
 
     $http.get('/api/courses')
         .success(function(data) {
