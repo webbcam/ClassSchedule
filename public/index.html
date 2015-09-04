@@ -8,14 +8,9 @@
     <title>CourseSchedule</title>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <!-- Lates compiled and minified FontAwesome -->
+    <!-- Latest compiled and minified FontAwesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-
-    <style>
-        .btn:focus {
-            outline: none;
-        }
-    </style>
+    <link rel="stylesheet" href="assets/style.css">
 
     <!-- Get Angular from CDN -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
@@ -27,7 +22,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.5/angular-animate.min.js"></script>
 
     <script src="courses.js"></script>
-    
 
 </head>
 
@@ -39,24 +33,27 @@
         </div>
 
         <div id="course-list" class="row">
-            <div class="col-sm-8 col-sm-offset-4">
-                <div ng-repeat="course in courseList">
 
-                    <div>
-                        <h4>{{course.course}} - {{course.section}} ({{course.instructors}}) &nbsp; <span ng-class="{'fa fa-caret-down': !isCollapsed, 'fa fa-caret-right': isCollapsed}" ng-click="isCollapsed = !isCollapsed" style="cursor:pointer"></span></h4>
-                        <div collapse="isCollapsed">
+            <div class="col-sm-8 col-sm-offset-2">
+                <div class="row">
+                <div ng-repeat="course in courseList">
+                    <div class="col-sm-5 panel panel-info" style="margin-right:8.3%">
+                        <div class="panel-heading" ng-click="isCollapsed = !isCollapsed" style="cursor:pointer">
+                        {{course.course}} - {{course.section}} ({{course.instructors}})  <span class="pull-right" ng-class="{'fa fa-caret-down': !isCollapsed, 'fa fa-caret-right': isCollapsed}"  style="cursor:pointer"></span>
+                        </div>
+                        <div class="panel-body" collapse="isCollapsed">
                             <div class="row">
-                                <div class="col-sm-5">
-                                <strong>Lectures</strong>  {{course.meetings[0].days}} {{course.meetings[0].start_time}} - {{course.meetings[0].end_time}} ({{course.meetings[0].building}} {{course.meetings[0].room}})
-                                <br><strong>{{course.meetings[1].classtype}} </strong>: {{course.meetings[1].days}} {{course.meetings[1].start_time}} - {{course.meetings[1].end_time}} ({{course.meetings[1].building}} {{course.meetings[1].room}})
+                                <div class="col-sm-10">
+                                <label>Lectures</label>  {{course.meetings[0].days}} {{course.meetings[0].start_time}} - {{course.meetings[0].end_time}} ({{course.meetings[0].building}} {{course.meetings[0].room}})
+                                <br><label>{{course.meetings[1].classtype}} </label>: {{course.meetings[1].days}} {{course.meetings[1].start_time}} - {{course.meetings[1].end_time}} ({{course.meetings[1].building}} {{course.meetings[1].room}})
                                 </div>
                                 <div class="col-sm-2">
-                                    <i class="pull-left glyphicon glyphicon-remove-circle" style="cursor:pointer" ng-click="deleteCourse(course._id)"></i>
+                                    <i class="pull-right fa fa-times" style="cursor:pointer" ng-click="deleteCourse(course._id)"></i>
                                 </div>
                             </div>
                         </div>
                     </div>
-
+                </div>
                 </div>
 
             </div>

@@ -47,32 +47,39 @@
         });
     });
 
+    //  takes the course name and section as parameters
     app.post('/api/courses', function(req, res) {
         var courseInfo = {};
         console.log("REQ: Course= "+req.body.course + "Section= " + req.body.section);
 
         request("http://api.umd.io/v0/courses/sections?course="+req.body.course.toUpperCase()+"&number="+req.body.section.toUpperCase(), function(err, response, body) {
             var courseInfo= (JSON.parse(body))[0];
+            try {
                 courseInfo.section = courseInfo.number; // give course object a "section" variable
 
-            //  create a course, information comes from AJAX request from Angular
-            Course.create(courseInfo, function(err, course) {
-                if (err)
-                    res.send(err);
-
-                 // get and return all the courses after you create another
-                Course.find(function(err, courses) {
+                //  create a course, information comes from AJAX request from Angular
+                Course.create(courseInfo, function(err, course) {
                     if (err)
-                        res.send(err)
-                    res.json(courses);
+                        res.send(err);
+
+                     // get and return all the courses after you create another
+                    Course.find(function(err, courses) {
+                        if (err)
+                            res.send(err)
+                        res.json(courses);
+                    });
                 });
-            });
+            } catch (err) {
+                Course.find(function(err, courses) {
+                        if (err)
+                            res.send(err)
+                        console.log("ERROR: MUST BE A VALID CLASS")
+                        res.json(courses);
+                    });
+            }
 
             
         });
-        
-        
-
     });
 
     //  deletes a course from your schedule: pass it the course name

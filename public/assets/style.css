@@ -1,0 +1,7 @@
+.btn:focus {
+    outline: none;
+}
+.col-sm-5{
+    padding-left: 0;
+    padding-right:0;
+}
