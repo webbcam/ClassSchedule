@@ -15,78 +15,36 @@
     <!-- Get Angular from CDN -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
     <!-- Get ngRoute from CDN -->
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular-route.min.js"></script>
+    <!-- // <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular-route.min.js"></script> -->
     <!-- Get ui.Bootstrap -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.3/ui-bootstrap-tpls.min.js"></script>
+    <!-- Get ui.Router -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>
     <!-- Get ngAnimate -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.5/angular-animate.min.js"></script>
 
     <script src="courses.js"></script>
+    <base href="/">
 
 </head>
 
-<body ng-controller="mainCtrl">
+<body>
+    <header>    
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <ul class="nav navbar-nav  navbar-right">
+                    <li><a ui-sref="today"><i class="fa fa-home"></i> Today</a></li>
+                    <li><a ui-sref="classes"><span class="glyphicon glyphicon-book"></span> Classes</a></li>
+                   
+                </ul>
+
+            </div>
+
+        </nav>
+    </header>
     <div class="container-fluid">
-
-        <div class="jumbotron text-center">
-            <h1>Enter your classes here:</h1>
-        </div>
-
-        <div id="course-list" class="row">
-
-            <div class="col-sm-8 col-sm-offset-2">
-                <div class="row">
-                <div ng-repeat="course in courseList">
-                    <div class="col-sm-5 panel panel-info" style="margin-right:8.3%">
-                        <div class="panel-heading" ng-click="isCollapsed = !isCollapsed" style="cursor:pointer">
-                        {{course.course}} - {{course.section}} ({{course.instructors}})  <span class="pull-right" ng-class="{'fa fa-caret-down': !isCollapsed, 'fa fa-caret-right': isCollapsed}"  style="cursor:pointer"></span>
-                        </div>
-                        <div class="panel-body" collapse="isCollapsed">
-                            <div class="row">
-                                <div class="col-sm-10">
-                                <label>Lectures</label>  {{course.meetings[0].days}} {{course.meetings[0].start_time}} - {{course.meetings[0].end_time}} ({{course.meetings[0].building}} {{course.meetings[0].room}})
-                                <br><label>{{course.meetings[1].classtype}} </label>: {{course.meetings[1].days}} {{course.meetings[1].start_time}} - {{course.meetings[1].end_time}} ({{course.meetings[1].building}} {{course.meetings[1].room}})
-                                </div>
-                                <div class="col-sm-2">
-                                    <i class="pull-right fa fa-times" style="cursor:pointer" ng-click="deleteCourse(course._id)"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                </div>
-
-            </div>
-        </div>
-        <br>
-
-
-        <div id="course-form" class="row">
-            <div class="cols-sm-2">
-                <form>
-                    <div class="cols-sm-4 col-sm-offset-4">
-                        <div class="form-group form-inline">
-                            <input type="text" class="form-control input-md
-                            text-center" placeholder="CMSC216"
-                            ng-model="courseData.course" autofocus>
-                            <input type="text" class="form-control input-md text-center" placeholder="0101" ng-model="courseData.section">
-                        
-                            <button type="submit" class="btn btn-primary btn-md"
-                            ng-click="createCourse()" >Add</button>
-                        </div>
-                    </div>
-
-                </form>
-            </div>
-
-        </div>
-
-
-
+        <ui-view></ui-view>
     </div>
-
-
-
 
 
 

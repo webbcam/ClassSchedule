@@ -1,0 +1,52 @@
+<div class="jumbotron text-center">
+    <h1>Enter your classes:</h1>
+</div>
+
+<div id="course-list" class="row">
+
+    <div class="col-sm-8 col-sm-offset-2">
+        <div class="row">
+        <div ng-repeat="course in courseList">
+            <div class="col-sm-5 panel panel-info" style="margin-right:8.3%">
+                <div class="panel-heading" ng-click="isCollapsed = !isCollapsed" style="cursor:pointer">
+                {{course.course}} - {{course.section}} ({{course.instructors}})  <span class="pull-right" ng-class="{'fa fa-caret-down': !isCollapsed, 'fa fa-caret-right': isCollapsed}"  style="cursor:pointer"></span>
+                </div>
+                <div class="panel-body" collapse="isCollapsed">
+                    <div class="row">
+                        <div class="col-sm-10">
+                        <label>Lectures</label>  {{course.meetings[0].days}} {{course.meetings[0].start_time}} - {{course.meetings[0].end_time}} ({{course.meetings[0].building}} {{course.meetings[0].room}})
+                        <br><label>{{course.meetings[1].classtype}} </label>: {{course.meetings[1].days}} {{course.meetings[1].start_time}} - {{course.meetings[1].end_time}} ({{course.meetings[1].building}} {{course.meetings[1].room}})
+                        </div>
+                        <div class="col-sm-2">
+                            <i class="pull-right fa fa-times" style="cursor:pointer" ng-click="deleteCourse(course._id)"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+
+    </div>
+</div>
+<br>
+
+
+<div id="course-form" class="row">
+    <div class="cols-sm-2">
+        <form>
+            <div class="cols-sm-4 col-sm-offset-4">
+                <div class="form-group form-inline">
+                    <input type="text" class="form-control input-md
+                    text-center" placeholder="CMSC216"
+                    ng-model="courseData.course" autofocus>
+                    <input type="text" class="form-control input-md text-center" placeholder="0101" ng-model="courseData.section">
+                
+                    <button type="submit" class="btn btn-primary btn-md"
+                    ng-click="createCourse()" >Add</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+</div>

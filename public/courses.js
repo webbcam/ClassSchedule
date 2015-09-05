@@ -1,5 +1,22 @@
 //  public/courses.js
-var app = angular.module('CourseSchedule', ['ngRoute','ui.bootstrap','ngAnimate']);
+var app = angular.module('CourseSchedule', ['ui.router','ui.bootstrap','ngAnimate']);
+
+
+app.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
+    $locationProvider.html5Mode(true);
+
+    $stateProvider
+        .state('today', {
+            url : "/today",
+            templateUrl : "views/today.html"
+        })
+        .state('classes', {
+            url : "/classes",
+            templateUrl : "views/classes.html",
+            controller : "mainCtrl"
+        });
+    $urlRouterProvider.otherwise('/today');
+})
 
 app.controller('mainCtrl', function($scope, $http) {
     $scope.courseName = "";
